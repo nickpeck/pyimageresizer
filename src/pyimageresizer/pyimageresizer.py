@@ -1,11 +1,8 @@
 """Main GUI for PyImageResizer
 """
-
 import os
-import sys
-import subprocess
 import tkinter as tk
-import tkinter.ttk as ttk
+import traceback
 
 import pygubu
 from tkinterdnd2 import DND_ALL
@@ -18,29 +15,39 @@ VALID_EXTS = [".png", ".bmp", ".jpg", ".jpeg", ".gif", ".tiff"]
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 PROJECT_UI = os.path.join(PROJECT_PATH, "pyimageresizer.ui")
 
-PRESETS = {p.description:p for p in [
+DPI_PRESETS = {p.description:p for p in [
     Preset(
-        name="email 72dpi",
-        description="email ( 600 72 dpi)",
-        dpi=72,
-        bounds=(600, 600)
+        name="72 dpi",
+        description="low 72 dpi",
+        dpi=72
     ),
     Preset(
-        name="5-4",
-        description="5:4 (1280x1024 72 dpi)",
-        dpi=72,
+        name="300 dpi",
+        description="print 300 dpi",
+        dpi=300
+    ),
+    Preset(
+        name="same dpi",
+        description="as-is",
+        dpi=None
+    ),
+]}
+
+BOUNDS_PRESETS = {p.description:p for p in [
+    Preset(
+        name="1280x1024",
+        description="5:4 (1280x1024)",
         bounds=(1280,1024)
     ),
     Preset(
-        name="4-3",
-        description="4:3 (720x576 72 dpi)",
-        dpi=72,
+        name="720x576",
+        description="4:3 (720x576)",
         bounds=(720,576)
     ),
     Preset(
-        name="print 300dpi",
-        description="print (upscale 300 dpi)",
-        dpi=300
+        name="same size",
+        description="as-is",
+        bounds=(None,None)
     ),
 ]}
 
@@ -52,9 +59,13 @@ class PyimageresizerApp:
         self.mainwindow = builder.get_object('toplevel1', master)
 
         # set the preset options
-        self.combo = builder.get_object('combobox2', master)
-        self.combo['values'] = list(PRESETS.keys())
-        self.combo.current(0)
+        self.dpi_combo_sel = builder.get_object('dpiComboSel', master)
+        self.dpi_combo_sel['values'] = list(DPI_PRESETS.keys())
+        self.dpi_combo_sel.current(0)
+
+        self.bounds_combo_sel = builder.get_object('boundsComboSel', master)
+        self.bounds_combo_sel['values'] = list(BOUNDS_PRESETS.keys())
+        self.bounds_combo_sel.current(0)
 
         # bind the scrollpane and the console
         self.console = builder.get_object('console', master)
@@ -78,22 +89,53 @@ class PyimageresizerApp:
         """
         self.log("Batch conversion starting")
         files = self.mainwindow.splitlist(event.data)
-        preset_name = self.combo.get()
-        preset = PRESETS[preset_name]
+
+        # compose a preset using the selected resolution and bounds
+        dpi_preset_name = self.dpi_combo_sel.get()
+        dpi_preset = DPI_PRESETS[dpi_preset_name]
+        bounds_preset_name = self.bounds_combo_sel.get()
+        bounds_preset = BOUNDS_PRESETS[bounds_preset_name]
+
+        preset = Preset(
+            name =  "{}-{}".format(dpi_preset.name, bounds_preset.name),
+            dpi = dpi_preset.dpi,
+            bounds = bounds_preset.bounds
+        )
+
+        # walk though the list of files, and the 1st level
+        # of any selected directories, converting the images
         path = None
         for file in files:
             if os.path.isdir(file):
-                continue
-            ext = os.path.splitext(file)[1]
-            if ext.lower() not in VALID_EXTS:
-                self.log("Unsupported image extension : {}".format(ext))
-                continue
-            path = convert_resolution(file, preset)
-            self.log(path)
+                self._convert_folder(file, preset)
+            else:
+                path = self._convert_image(file, preset)
+
+        self.log("Batch conversion complete")
+        # if the selection was of files only,
+        # open explorer in the output directory
         if path is not None:
-            self.log("Batch conversion complete")
             parent_folder = os.path.dirname(path)
             os.startfile(parent_folder)
+
+    def _convert_folder(self, folder, preset):
+        for file in os.listdir(folder):
+            if os.path.isdir(file):
+                continue
+            self._convert_image(os.path.join(folder, file), preset)
+
+    def _convert_image(self, path_to_file, preset):
+        ext = os.path.splitext(path_to_file)[1]
+        if ext.lower() not in VALID_EXTS:
+            self.log("Unsupported image extension : {}".format(ext))
+            return None
+        try:
+            path = convert_resolution(path_to_file, preset)
+        except Exception:
+            self.log(traceback.format_exc())
+            self.log("[WARNING] conversion failed")
+        self.log(path)
+        return path
 
     def log(self, *args):
         print(*args)
@@ -119,7 +161,8 @@ class PyimageresizerApp:
                 f"global auto_path; lappend auto_path {{{import_path}}}"
             )
             self.mainwindow.tk.call("package", "require", "tkdnd")
-        except tk.TclError as e:
+        except tk.TclError:
+            self.log(traceback.format_exc())
             self.log("[WARNING] TKDND could not be loaded")
 
     def _bind_dnd(self):
