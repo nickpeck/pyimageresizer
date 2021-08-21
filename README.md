@@ -2,9 +2,9 @@
 
 A simple no-frills GUI utility to help novice users with resizing camera images.
 
-The app presents a GUI with simple presets and a drop zone into which images can be dragged for processing.
+The app presents a GUI with simple presets and a drop zone into which images (or folders) can be dragged for processing. In the case of folders, only the 1st level of files are processed.
 
-## Usage
+## Usage (Development)
 
 You will need to specify the path to the folder containing the tkdnd binaries:
 ~~~
