@@ -35,14 +35,14 @@ DPI_PRESETS = {p.description:p for p in [
 
 BOUNDS_PRESETS = {p.description:p for p in [
     Preset(
-        name="1280x1024",
-        description="5:4 (1280x1024)",
-        bounds=(1280,1024)
+        name="1280x720",
+        description="16:9 (1280x720)",
+        bounds=(800,600)
     ),
     Preset(
-        name="720x576",
-        description="4:3 (720x576)",
-        bounds=(720,576)
+        name="800x600",
+        description="4:3 (800x600)",
+        bounds=(800,600)
     ),
     Preset(
         name="same size",
