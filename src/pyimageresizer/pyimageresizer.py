@@ -37,7 +37,7 @@ BOUNDS_PRESETS = {p.description:p for p in [
     Preset(
         name="1280x720",
         description="16:9 (1280x720)",
-        bounds=(800,600)
+        bounds=(1280,720)
     ),
     Preset(
         name="800x600",
