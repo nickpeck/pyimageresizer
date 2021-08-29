@@ -35,14 +35,34 @@ DPI_PRESETS = {p.description:p for p in [
 
 BOUNDS_PRESETS = {p.description:p for p in [
     Preset(
-        name="1280x720",
-        description="16:9 (1280x720)",
-        bounds=(1280,720)
+        name="height=1024",
+        description="max height = 1024px",
+        bounds=(1024, None)
+    ),
+    Preset(
+        name="height=800",
+        description="max height = 800px",
+        bounds=(800, None)
+    ),
+    Preset(
+        name="width=768",
+        description="max width = 768px",
+        bounds=(None, 768)
+    ),
+    Preset(
+        name="width=600",
+        description="max width = 600px",
+        bounds=(None, 600)
+    ),    
+    Preset(
+        name="1024x768",
+        description="fits 4:3 1024x768px",
+        bounds=(1024, 768)
     ),
     Preset(
         name="800x600",
-        description="4:3 (800x600)",
-        bounds=(800,600)
+        description="fits 4:3 800x600px",
+        bounds=(800, 600)
     ),
     Preset(
         name="same size",
@@ -57,6 +77,7 @@ class PyimageresizerApp:
         builder.add_resource_path(PROJECT_PATH)
         builder.add_from_file(PROJECT_UI)
         self.mainwindow = builder.get_object('toplevel1', master)
+        self.mainwindow.resizable(width=False, height=False)
 
         # set the preset options
         self.dpi_combo_sel = builder.get_object('dpiComboSel', master)

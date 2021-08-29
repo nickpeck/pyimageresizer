@@ -62,7 +62,7 @@
                         </layout>
                         <child>
                             <object class="ttk.Label" id="label4">
-                                <property name="text" translatable="yes">Resize to bounds:</property>
+                                <property name="text" translatable="yes">Resize so that... </property>
                                 <layout manager="pack">
                                     <property name="propagate">True</property>
                                     <property name="side">left</property>

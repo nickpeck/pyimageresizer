@@ -17,16 +17,16 @@ rmdir /s /q dist
 --hidden-import pygubu.builder.widgets.tkscrollbarhelper ^
 --hidden-import pygubu.builder.widgets.tkscrolledframe ^
 --hidden-import pygubu.builder.widgets.pathchooserinput ^
---add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\libtkdnd2.9.2.dll;pyimageresizer ^
---add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\pkgIndex.tcl;pyimageresizer ^
---add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd.tcl;pyimageresizer ^
---add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd_compat.tcl;pyimageresizer ^
---add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd_generic.tcl;pyimageresizer ^
---add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd_macosx.tcl;pyimageresizer ^
---add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd_unix.tcl;pyimageresizer ^
---add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd_utils.tcl;pyimageresizer ^
---add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd_windows.tcl;pyimageresizer ^
---add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd2.9.2.lib;pyimageresizer ^
+--add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\libtkdnd2.9.2.dll;tkdnd ^
+--add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\pkgIndex.tcl;tkdnd ^
+--add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd.tcl;tkdnd ^
+--add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd_compat.tcl;tkdnd ^
+--add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd_generic.tcl;tkdnd ^
+--add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd_macosx.tcl;tkdnd ^
+--add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd_unix.tcl;tkdnd ^
+--add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd_utils.tcl;tkdnd ^
+--add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd_windows.tcl;tkdnd ^
+--add-binary Lib\\site-packages\\tkdnd\\tkdnd\\win64\\tkdnd2.9.2.lib;tkdnd ^
 --add-data=src\pyimageresizer\pyimageresizer.ui;pyimageresizer ^
 --icon icon.ico ^
 --noconsole ^
