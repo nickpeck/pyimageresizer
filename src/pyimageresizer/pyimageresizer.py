@@ -18,12 +18,12 @@ PROJECT_UI = os.path.join(PROJECT_PATH, "pyimageresizer.ui")
 DPI_PRESETS = {p.description:p for p in [
     Preset(
         name="72 dpi",
-        description="low 72 dpi",
+        description="low (emails) 72 dpi",
         dpi=72
     ),
     Preset(
         name="300 dpi",
-        description="print 300 dpi",
+        description="high (print) 300 dpi",
         dpi=300
     ),
     Preset(
@@ -36,37 +36,27 @@ DPI_PRESETS = {p.description:p for p in [
 BOUNDS_PRESETS = {p.description:p for p in [
     Preset(
         name="height=1024",
-        description="max height = 1024px",
-        bounds=(1024, None)
+        description="height is 1024px",
+        bounds=(None, 1024)
     ),
     Preset(
         name="height=800",
-        description="max height = 800px",
-        bounds=(800, None)
+        description="height is 800px",
+        bounds=(None, 800)
     ),
     Preset(
         name="width=768",
-        description="max width = 768px",
-        bounds=(None, 768)
+        description="width is 768px",
+        bounds=(768, None)
     ),
     Preset(
         name="width=600",
-        description="max width = 600px",
-        bounds=(None, 600)
-    ),    
-    Preset(
-        name="1024x768",
-        description="fits 4:3 1024x768px",
-        bounds=(1024, 768)
-    ),
-    Preset(
-        name="800x600",
-        description="fits 4:3 800x600px",
-        bounds=(800, 600)
+        description="width is 600px",
+        bounds=(600, None)
     ),
     Preset(
         name="same size",
-        description="as-is",
+        description="size remains the same",
         bounds=(None,None)
     ),
 ]}

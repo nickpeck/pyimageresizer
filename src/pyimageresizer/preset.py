@@ -5,4 +5,4 @@ class Preset:
     name: str
     description: str = ""
     dpi: int = None
-    bounds: tuple = (None, None)
+    bounds: tuple = (None, None) # width, height

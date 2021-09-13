@@ -20,7 +20,7 @@ def convert_resolution(path_to_file: str, preset: Preset):
         aspect_ratio = src_width  / src_height
 
         if preset.bounds != (None, None):
-            target_height, target_width = preset.bounds
+            target_width, target_height = preset.bounds
             if target_width is None:
                 # scale width relative to given height
                 target_width = int(target_height * aspect_ratio)
@@ -29,8 +29,6 @@ def convert_resolution(path_to_file: str, preset: Preset):
                 # scale height relative to given width
                 target_height = int(target_width / aspect_ratio)
                 image = image.resize((target_width, target_height))
-            else:
-                image.thumbnail((target_width, target_height), Image.ANTIALIAS)
 
         root = os.path.dirname(path_to_file)
         filename = os.path.basename(path_to_file)
