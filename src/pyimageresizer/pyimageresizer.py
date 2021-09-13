@@ -35,24 +35,24 @@ DPI_PRESETS = {p.description:p for p in [
 
 BOUNDS_PRESETS = {p.description:p for p in [
     Preset(
-        name="height=1024",
-        description="height is 1024px",
-        bounds=(None, 1024)
+        name="width=1024",
+        description="width is 1024px",
+        bounds=(1024, None)
     ),
     Preset(
-        name="height=800",
-        description="height is 800px",
-        bounds=(None, 800)
+        name="width=800",
+        description="width is 800px",
+        bounds=(800, None)
     ),
     Preset(
-        name="width=768",
-        description="width is 768px",
-        bounds=(768, None)
+        name="height=768",
+        description="height is 768px",
+        bounds=(None, 768)
     ),
     Preset(
-        name="width=600",
-        description="width is 600px",
-        bounds=(600, None)
+        name="height=600",
+        description="height is 600px",
+        bounds=(None, 600)
     ),
     Preset(
         name="same size",
